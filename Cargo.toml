@@ -1,0 +1,23 @@
+[workspace]
+members = ["crates/cli", "crates/core", "crates/app", "crates/applet"]
+resolver = "3"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.87"
+license = "GPL-2.0-or-later"
+description = "Native COSMIC dialog tool (Rust + libcosmic)"
+
+[workspace.dependencies]
+clap = { version = "4.6.7", features = ["derive"] }
+thiserror = { version = "2" }
+anyhow = { version = "1" }
+tracing = { version = "0.1" }
+# libcosmic pin.
+# Features: about wgpu xdg-portal.
+libcosmic = { git = "https://github.com/pop-os/libcosmic.git", rev = "dd108aa99d7306110eef06da43eafc109e1ab151", features = ["about", "wgpu", "xdg-portal"] }
+
+[profile.release]
+lto = true
+strip = true

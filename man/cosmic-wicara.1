@@ -1,0 +1,502 @@
+.TH COSMIC-WICARA 1 "November 2026" "cosmic-wicara 0.1.0" "User Commands"
+.SH NAME
+cosmic-wicara \- Native COSMIC dialog tool
+.SH SYNOPSIS
+.B cosmic-wicara
+.RI [ --help ]
+.br
+.B cosmic-wicara
+.RI [ --help-general ]
+.br
+.B cosmic-wicara
+.RI [ --dialog-type ]
+.RI [ --dialog-options ]
+.SH DESCRIPTION
+.B cosmic-wicara
+is a native COSMIC dialog tool for shell scripts
+version 4.2.2, reimplemented in Rust with libcosmic. It displays GTK-lookalike
+dialog boxes on the COSMIC desktop and returns results on
+.BR stdout (4).
+It is COSMIC-only and Wayland-first; it does not run as a GTK application.
+.PP
+.B cosmic-wicara
+shows at most one dialog at a time. All long flags mirror
+.B cosmic-wicara --help*
+(EN). Diagnostics are written to stderr; stdout carries data only.
+Exit status is 0 on OK, 1 on Cancel/close, and 255 on error
+(unrecognized option or missing/invalid dialog selection).
+.SH OPTIONS
+.SS Help Options
+.TP
+.BR --help , -h
+Show help for all dialog types.
+.TP
+.B --help-all
+Show all help options.
+.TP
+.B --help-general
+Show general options.
+.TP
+.B --help-calendar
+Show calendar options.
+.TP
+.B --help-entry
+Show text entry options.
+.TP
+.B --help-error
+Show error options.
+.TP
+.B --help-info
+Show info options.
+.TP
+.B --help-file-selection
+Show file selection options.
+.TP
+.B --help-list
+Show list options.
+.TP
+.B --help-notification
+Show notification options.
+.TP
+.B --help-progress
+Show progress options.
+.TP
+.B --help-question
+Show question options.
+.TP
+.B --help-warning
+Show warning options.
+.TP
+.B --help-scale
+Show scale options.
+.TP
+.B --help-text-info
+Show text information options.
+.TP
+.B --help-color-selection
+Show color selection options.
+.TP
+.B --help-password
+Show password dialog options.
+.TP
+.B --help-forms
+Show forms dialog options.
+.TP
+.B --help-misc
+Show miscellaneous options.
+.TP
+.B --version
+Show version information.
+.SS General Options
+These options apply to all dialogs where applicable.
+.TP
+.BI --title= TITLE
+Set the dialog title.
+.TP
+.BI --width= WIDTH
+Set the width (0 = default).
+.TP
+.BI --height= HEIGHT
+Set the height (0 = fit the content).
+.TP
+.BI --timeout= SECONDS
+Set dialog timeout in seconds. On timeout the dialog closes and
+exit status 5 is returned on timeout.
+.TP
+.BI --ok-label= TEXT
+Set the label of the OK button (default: OK).
+.TP
+.BI --cancel-label= TEXT
+Set the label of the Cancel button (default: Cancel).
+.TP
+.BI --extra-button= TEXT
+Add an extra button. May be repeated.
+.TP
+.B --modal
+Set the modal hint.
+.TP
+.BI --attach= WINDOW
+DEPRECATED; does nothing. Kept for script compatibility.
+.SS Dialog Types
+Exactly one dialog type must be specified. Two or more dialog types
+cause exit status 255.
+.TP
+.B --calendar
+Display calendar dialog.
+.TP
+.B --entry
+Display text entry dialog.
+.TP
+.B --error
+Display error dialog.
+.TP
+.B --info
+Display info dialog.
+.TP
+.B --file-selection
+Display file selection dialog.
+.TP
+.B --list
+Display list dialog.
+.TP
+.B --notification
+Display notification.
+.TP
+.B --progress
+Display progress indication dialog.
+.TP
+.B --question
+Display question dialog.
+.TP
+.B --warning
+Display warning dialog.
+.TP
+.B --scale
+Display scale dialog.
+.TP
+.B --text-info
+Display text information dialog.
+.TP
+.B --color-selection
+Display color selection dialog.
+.TP
+.B --password
+Display password dialog.
+.TP
+.B --forms
+Display forms dialog.
+.TP
+.B --about
+About cosmic-wicara.
+.SS Calendar Options
+.B --calendar --text= TEXT --day= DAY --month= MONTH --year= YEAR
+.BI --date-format= PATTERN
+.TP
+.BI --text= TEXT
+Set the dialog text.
+.TP
+.BI --day= DAY
+Set the calendar day.
+.TP
+.BI --month= MONTH
+Set the calendar month.
+.TP
+.BI --year= YEAR
+Set the calendar year.
+.TP
+.BI --date-format= PATTERN
+Set the format for the generated date.
+.SS Text Entry Options
+.B --entry --text= TEXT --entry-text= TEXT --hide-text
+.TP
+.BI --text= TEXT
+Set the dialog text.
+.TP
+.BI --entry-text= TEXT
+Set the entry text.
+.TP
+.B --hide-text
+Hide the entry text.
+.SS Error Options
+.B --error --text= TEXT --icon= ICON-NAME --no-wrap --no-markup --ellipsize
+.TP
+.BI --text= TEXT
+Set the dialog text.
+.TP
+.BI --icon= ICON-NAME
+Set the icon name.
+.TP
+.B --no-wrap
+Do not enable text wrapping.
+.TP
+.B --no-markup
+Do not enable Pango markup.
+.TP
+.B --ellipsize
+Enable ellipsizing in the dialog text.
+.SS Info Options
+.B --info --text= TEXT --icon= ICON-NAME --no-wrap --no-markup --ellipsize
+.TP
+.BI --text= TEXT
+Set the dialog text.
+.TP
+.BI --icon= ICON-NAME
+Set the icon name.
+.TP
+.B --no-wrap
+Do not enable text wrapping.
+.TP
+.B --no-markup
+Do not enable Pango markup.
+.TP
+.B --ellipsize
+Enable ellipsizing in the dialog text.
+.SS File Selection Options
+.BI --file-selection [--filename= FILENAME ] [--multiple ] [--directory ] [--save ] [--separator= SEPARATOR ] [--file-filter= PATTERN... ] [--confirm-overwrite]
+.TP
+.BI --filename= FILENAME
+Set the filename (initial path).
+.TP
+.B --multiple
+Allow multiple file selection.
+.TP
+.B --directory
+Enables selection of only directories.
+.TP
+.B --save
+Enables save mode.
+.TP
+.BI --separator= SEPARATOR
+Set the output separator character.
+.TP
+.BI --file-filter= NAME | PATTERN ...
+Set the file filter.
+.TP
+.B --confirm-overwrite
+DEPRECATED; does nothing.
+.SS List Options
+.BI --list [--text= TEXT ] [--column= COLUMN... ] [--checklist ] [--radiolist ] [--imagelist ] [--separator= SEPARATOR ] [--multiple ] [--editable ] [--print-column= NUMBERS ] [--hide-column= NUMBERS ] [--hide-header ] [--mid-search]
+.TP
+.BI --text= TEXT
+Set the dialog text.
+.TP
+.BI --column= COLUMN
+Set the column header. Repeat for each column.
+.TP
+.B --checklist
+Use checkboxes for the first column.
+.TP
+.B --radiolist
+Use radio buttons for the first column.
+.TP
+.B --imagelist
+Use images for the first column.
+.TP
+.BI --separator= SEPARATOR
+Set the output separator character.
+.TP
+.B --multiple
+Allow multiple row selection.
+.TP
+.B --editable
+Allow changing the text.
+.TP
+.BI --print-column= NUMBER
+Print the selected column(s) (1..n, 'ALL' prints all columns).
+.TP
+.BI --hide-column= NUMBER
+Hide the specified column(s).
+.TP
+.B --hide-header
+Hide the column headers.
+.TP
+.B --mid-search
+DEPRECATED; does nothing.
+.SS Notification Options
+.BI --notification [--text= TEXT ] [--icon= ICON ] [--listen ] [--hint= TEXT ]
+.TP
+.BI --text= TEXT
+Set the notification text.
+.TP
+.BI --icon= ICON-NAME
+Set the icon name.
+.TP
+.B --listen
+Read commands from stdin.
+.TP
+.BI --hint= TEXT
+DEPRECATED; does nothing.
+.SS Progress Options
+.BI --progress [--text= TEXT ] [--percentage= N ] [--pulsate ] [--auto-close ] [--auto-kill ] [--no-cancel ] [--time-remaining ]
+.TP
+.BI --text= TEXT
+Set the dialog text.
+.TP
+.BI --percentage= PERCENTAGE
+Set the initial percentage.
+.TP
+.B --pulsate
+Pulsate the progress indicator.
+.TP
+.B --auto-close
+Close the dialog after reaching 100%.
+.TP
+.B --auto-kill
+Kill the parent process if Cancel button is pressed (Unix only, SIGTERM to the parent captured at startup).
+.TP
+.B --no-cancel
+Hide the Cancel button.
+.TP
+.B --time-remaining
+Estimate when progress will reach 100%.
+.SS Question Options
+.BI --question [--text= TEXT ] [--icon= ICON ] [--no-wrap ] [--no-markup ] [--default-cancel ] [--ellipsize ] [--switch ]
+.TP
+.BI --text= TEXT
+Set the dialog text.
+.TP
+.BI --icon= ICON-NAME
+Set the icon name.
+.TP
+.B --no-wrap
+Do not enable text wrapping.
+.TP
+.B --no-markup
+Do not enable Pango markup.
+.TP
+.B --default-cancel
+Give Cancel button focus by default.
+.TP
+.B --ellipsize
+Enable ellipsizing in the dialog text.
+.TP
+.B --switch
+Suppress OK and Cancel buttons.
+.SS Warning Options
+.BI --warning [--text= TEXT ] [--icon= ICON ] [--no-wrap ] [--no-markup ] [--ellipsize ]
+.TP
+.BI --text= TEXT
+Set the dialog text.
+.TP
+.BI --icon= ICON-NAME
+Set the icon name.
+.TP
+.B --no-wrap
+Do not enable text wrapping.
+.TP
+.B --no-markup
+Do not enable Pango markup.
+.TP
+.B --ellipsize
+Enable ellipsizing in the dialog text.
+.SS Scale Options
+.BI --scale [--text= TEXT ] [--value= VALUE ] [--min-value= VALUE ] [--max-value= VALUE ] [--step= VALUE ] [--print-partial ] [--hide-value ]
+.TP
+.BI --text= TEXT
+Set the dialog text.
+.TP
+.BI --value= VALUE
+Set the initial value.
+.TP
+.BI --min-value= VALUE
+Set the minimum value.
+.TP
+.BI --max-value= VALUE
+Set the maximum value.
+.TP
+.BI --step= VALUE
+Set the step size.
+.TP
+.B --print-partial
+Print the partial value.
+.TP
+.B --hide-value
+Hide the value.
+.SS Text Information Options
+.BI --text-info [--filename= FILENAME ] [--editable ] [--font= TEXT ] [--checkbox= TEXT ] [--auto-scroll ]
+.TP
+.BI --filename= FILENAME
+Open the file.
+.TP
+.B --editable
+Allow changing the text.
+.TP
+.BI --font= TEXT
+Set the text font.
+.TP
+.BI --checkbox= TEXT
+Enable the 'I have read and agree' checkbox.
+.TP
+.B --auto-scroll
+Auto-scroll the text to the end. Only when the text is captured from stdin.
+.SS Color Selection Options
+.BI --color-selection [--color= VALUE ] [--show-palette ]
+.TP
+.BI --color= VALUE
+Set the color.
+.TP
+.B --show-palette
+Show the palette.
+.SS Password Dialog Options
+.BI --password [--username ]
+.TP
+.B --username
+Show the username option.
+.SS Forms Options
+.BI --forms [--add-entry= TEXT ...] [--add-password= TEXT ] [--add-multiline-entry= TEXT ] [--add-calendar= TEXT ] [--add-list= TEXT ] [--list-values= TEXT ] [--column-values= TEXT ] [--add-combo= TEXT ] [--combo-values= TEXT ] [--show-header ] [--text= TEXT ] [--separator= SEPARATOR ] [--forms-date-format= PATTERN ]
+.TP
+.BI --add-entry= TEXT
+Add a new entry in forms dialog.
+.TP
+.BI --add-password= TEXT
+Add a new password entry in forms dialog.
+.TP
+.BI --add-multiline-entry= TEXT
+Add a new multi-line entry in forms dialog (Since: 4.2).
+.TP
+.BI --add-calendar= TEXT
+Add a new calendar in forms dialog.
+.TP
+.BI --add-list= TEXT
+Add a new list in forms dialog. Output is label= followed by all selected values joined by '|'.
+.TP
+.BI --list-values= TEXT
+List of values separated by '|', for List.
+.TP
+.BI --column-values= TEXT
+List of values separated by '|', for column.
+.TP
+.BI --add-combo= TEXT
+Add a new combo box in forms dialog.
+.TP
+.BI --combo-values= TEXT
+List of values separated by '|', for Combo.
+.TP
+.B --show-header
+Show the column headers.
+.TP
+.BI --text= TEXT
+Set the dialog text.
+.TP
+.BI --separator= SEPARATOR
+Set the output separator character.
+.TP
+.BI --forms-date-format= PATTERN
+Set the format for the generated date.
+.SS Miscellaneous Options
+.TP
+.B --about
+About cosmic-wicara.
+.SH EXAMPLES
+.TP
+.B cosmic-wicara --question --title="Confirm" --text="Proceed?"
+May be used in shell scripts inside a COSMIC session.
+.TP
+.B cosmic-wicara --entry --title="Login" --text="Enter name:"
+Prints the entered text on stdout.
+.TP
+.B cosmic-wicara --file-selection --directory --multiple
+Prints selected paths, one per line.
+.TP
+.B cosmic-wicara --progress --pulsate --title="Working"
+Reads percentage lines on stdin and updates the progress bar.
+.TP
+.B cosmic-wicara --notification --text="Done" --icon=dialog-information
+Displays a desktop notification bubble.
+.SH EXIT STATUS
+.TP
+.B 0
+OK, help, or --version.
+.TP
+.B 1
+Cancel, window close, or timeout.
+.TP
+.B 255
+Error: missing dialog type, more than one dialog type, or
+unrecognized option.
+.SH BUGS
+Report bugs against cosmic-wicara. This tool mirrors only the CLI of
+.BR cosmic-wicara (1)
+4.2.2; GTK-only behaviour is intentionally not reproduced.
+.SH SEE ALSO
+.BR cosmic-wicara (1)

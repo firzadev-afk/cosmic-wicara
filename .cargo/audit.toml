@@ -1,0 +1,16 @@
+# cargo-audit ignore list (RustSec *warnings* only, not vulnerabilities).
+# Every entry below arrives transitively via the pinned libcosmic rev
+# dd108aa99d7306110eef06da43eafc109e1ab151 and cannot be bumped from this
+# workspace. Re-check and remove each entry when the libcosmic pin is raised.
+[advisories]
+ignore = [
+  "RUSTSEC-2026-0374", # basic-toml (unmaintained, via i18n-config <- libcosmic)
+  "RUSTSEC-2024-0436", # paste (unmaintained)
+  "RUSTSEC-2026-0206", # rustybuzz (unmaintained, via resvg <- iced_tiny_skia)
+  "RUSTSEC-2026-0192", # ttf-parser (unmaintained, via fontdb/cosmic-text)
+  "RUSTSEC-2026-0371", # zbus_names (unmaintained)
+  "RUSTSEC-2026-0370", # zvariant (unmaintained)
+  "RUSTSEC-2026-0372", # zvariant_derive (unmaintained)
+  "RUSTSEC-2026-0253", # lru (unsound, pinned by cryoglyph <- iced_wgpu)
+  "RUSTSEC-2026-0186", # memmap2 0.8.0 (unsound, pinned by xkbcommon 0.7)
+]

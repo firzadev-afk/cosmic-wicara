@@ -1,0 +1,29 @@
+# Maintainer: cosmic-wicara contributors
+# SPDX-License-Identifier: GPL-2.0-or-later
+pkgname=cosmic-wicara
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Native COSMIC dialog tool (Rust + libcosmic, COSMIC-only)"
+arch=('x86_64' 'aarch64')
+url="https://github.com/pop-os/cosmic-wicara"
+license=('GPL-2.0-or-later')
+depends=('hicolor-icon-theme' 'libcosmic' 'wayland')
+makedepends=('cargo' 'rust')
+source=("cosmic-wicara-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
+sha256sums=('SKIP')
+options=('strip')
+
+# Cargo release profile.
+build() {
+  cd "$srcdir/cosmic-wicara-$pkgver"
+  cargo build --release --locked
+}
+
+package() {
+  cd "$srcdir/cosmic-wicara-$pkgver"
+  install -Dm755 target/release/cosmic-wicara "$pkgdir/usr/bin/cosmic-wicara"
+  install -Dm644 man/cosmic-wicara.1 "$pkgdir/usr/share/man/man1/cosmic-wicara.1"
+  install -Dm644 cosmic-wicara.desktop "$pkgdir/usr/share/applications/cosmic-wicara.desktop"
+  install -Dm644 README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
+  install -Dm644 CHANGELOG.md "$pkgdir/usr/share/doc/$pkgname/CHANGELOG.md"
+}

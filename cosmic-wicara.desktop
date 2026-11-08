@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Cosmic Wicara
+GenericName=Dialog Tool
+Comment=Display native COSMIC dialog boxes
+Exec=cosmic-wicara
+Icon=dialog-information
+Terminal=false
+Type=Application
+Categories=Utility;GTK;
+Keywords=dialog;wicara;cosmic;
+StartupNotify=true

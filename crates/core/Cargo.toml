@@ -1,0 +1,11 @@
+[package]
+name = "core"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+description = "cosmic-wicara core: dialog trait, Exit codes, theme, icons, notify"
+
+[dependencies]
+libcosmic.workspace = true
+zbus = "6"

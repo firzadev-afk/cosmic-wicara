@@ -1,0 +1,17 @@
+[package]
+name = "app"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+description = "cosmic-wicara app: libcosmic window shell and dialogs"
+
+[dependencies]
+libcosmic.workspace = true
+# Core alias.
+wicara_core = { package = "core", path = "../core" }
+# Bounded stdin channels.
+tokio = { version = "1", default-features = false, features = ["sync"] }
+jiff = "0.2"
+
+libc = "0.2"

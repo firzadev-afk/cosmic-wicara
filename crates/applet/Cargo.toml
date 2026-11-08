@@ -1,0 +1,17 @@
+[package]
+name = "applet"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+description = "cosmic-wicara COSMIC tray applet (checkupdates poll + tray subscription)"
+default-run = "cosmic-applet-wicara"
+
+[[bin]]
+name = "cosmic-applet-wicara"
+path = "src/main.rs"
+
+[dependencies]
+libcosmic = { workspace = true, features = ["applet"] }
+# Core alias.
+wicara_core = { package = "core", path = "../core" }
