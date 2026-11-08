@@ -157,6 +157,12 @@ impl DialogConfig {
 
     /// Needs tall window?
     pub(crate) fn wants_taller(&self) -> bool {
-        !matches!(self.request, DialogRequest::Message)
+        if matches!(self.request, DialogRequest::Message) {
+            // Long message bodies need the tall minimum, otherwise the fixed
+            // dialog window clips the Update/Nanti buttons off the bottom.
+            self.body.lines().count() > 2 || self.body.len() > 80
+        } else {
+            true
+        }
     }
 }

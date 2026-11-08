@@ -16,8 +16,8 @@ pub(crate) const BODY_LINE_HEIGHT: f32 = 20.0; // `text::body` line
 pub(crate) const BODY_MAX_HEIGHT: f32 = 300.0; // `dialog()` body scroll cap
 /// Body slack pixels.
 pub(crate) const BODY_SLACK: f32 = 4.0;
-/// Average glyph width estimate.
-pub(crate) const CHAR_WIDTH: f32 = 7.0;
+/// Average glyph width estimate (conservative: underestimate capacity so the window never clips buttons).
+pub(crate) const CHAR_WIDTH: f32 = 8.0;
 
 /// Estimate wrapped lines.
 pub(crate) fn wrapped_lines(text: &str, width: u32) -> usize {

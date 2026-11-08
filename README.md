@@ -364,10 +364,9 @@ cosmic-wicara/
     │   └── tests/          # CLI tests (headless + exit codes)
     ├── core/               # Dialog/Exit/theme/icons + notify (bus/listen)
     ├── app/                # libcosmic window shell (all dialogs)
-    │   ├── src/runner/     # config/state/output/views (+file_task): dialog runtime
-    │   ├── src/window/     # shell state + geometry + blur
-    │   └── src/dialogs/    # one file per dialog
-    └── applet/             # tray applet (poll + tray)
+        ├── src/runner/     # config/state/output/views (+file_task): dialog runtime
+        ├── src/window/     # shell state + geometry + blur
+        └── src/dialogs/    # one file per dialog
 ```
 
 ### How it works (data flow)

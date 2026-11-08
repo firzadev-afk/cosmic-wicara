@@ -31,8 +31,13 @@
 ### Fixed
 
 - **Timeout now consistently exits `5` on every path** (previously one path exited `1` due to message mapping).
+- **Message dialog no longer clips its action buttons:** long `--question`/`--info`/`--error` bodies now get the tall window minimum and a conservative wrapped-line estimate, so Update Now/Later buttons stay visible.
 - **Brand cleanup:** no leftover external references in code, the man page (`man/cosmic-wicara.1`), or the desktop entry (`cosmic-wicara.desktop`).
 - **Documentation:** the `docs/` folder (old plans) was removed; all documentation now lives in `README.md`, `CHANGELOG.md`, and the man page `man/cosmic-wicara.1` so it is easier to find and understand.
+
+### Removed
+
+- **Tray applet moved out of this repo:** the `crates/applet` crate (`cosmic-applet-wicara`, `checkupdates` polling + tray popup) was removed from the workspace. Update scheduling now lives in the separate `cosmic-update-notif` project (boot-only systemd service + script that calls `cosmic-wicara` only when updates exist); this repo is a pure dialog tool.
 
 ---
 
