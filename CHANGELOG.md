@@ -1,87 +1,87 @@
 # Changelog
 
-> Semua perubahan penting untuk **cosmic-wicara** dicatat di file ini.
-> Format mengikuti [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) dan [Semantic Versioning](https://semver.org/).
-> File ini ditulis agar mudah dibaca: setiap entri menjelaskan *apa yang berubah* dan *kenapa itu penting*.
+> All notable changes to **cosmic-wicara** are documented here.
+> The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and [Semantic Versioning](https://semver.org/).
+> Each entry explains *what changed* and *why it matters*.
 
 ---
 
 ## [Unreleased]
 
-> Belum dirilis. Bagian ini berisi perubahan yang sudah selesai di kode tapi belum masuk rilis resmi.
-
-### Added — Fitur baru
-
-- **Semua 15 dialog + `about` sudah terhubung ke widget `libcosmic` asli:**
-  - Input teks (`entry` / `password`)
-  - File chooser via `xdg-portal` (file picker COSMIC)
-  - Kalender (*calendar*), slider angka (*scale*), color picker (*color-selection*)
-  - List interaktif (*list*), text viewer dengan checkbox (*text-info*)
-  - Progress bar dari `stdin` (*progress*), notifikasi dengan `--listen` (*notification*)
-  - Formulir multi-field (*forms*)
-- **Opsi baru:**
-  - `--extra-button` — tambah tombol ekstra (boleh diulang)
-  - `--icon`, `--window-icon` — ikon dialog / ikon jendela
-  - `--ellipsize`, `--no-wrap` — kontrol tampilan teks
-  - `--switch`, `--default-cancel` — kontrol tombol & fokus
-  - `--json` — hasil dialog sebagai JSON (untuk dibaca program)
-  - `--lang=en|id` — bahasa teks bawaan dialog (English / Indonesia)
-- **Kontrak hasil dialog (`DialogResult`):** data `stdout` dicetak sekali saat dialog selesai, sehingga mudah di-`capture` oleh script.
-
-### Fixed — Perbaikan bug
-
-- **Timeout sekarang konsisten exit `5` di semua jalur** (sebelumnya ada jalur yang salah keluar `1` karena pemetaan pesan).
-- **Pembersihan brand:** tidak ada referensi eksternal tersisa di kode, halaman manual (`man/cosmic-wicara.1`), dan entri desktop (`cosmic-wicara.desktop`).
-- **Dokumentasi:** folder `docs/` (berisi rencana lama) dihapus; seluruh dokumentasi kini terpusat di `README.md`, `CHANGELOG.md`, dan halaman manual `man/cosmic-wicara.1` supaya lebih mudah ditemukan dan dipahami.
-
----
-
-## [0.1.0] — Rilis awal
-
-> Rilis pertama: tool dialog native COSMIC (Rust + `libcosmic`, khusus COSMIC, Wayland-first).
+> Not released yet. This section lists changes that are done in code but not part of an official release.
 
 ### Added
 
-- **15 dialog + `about`:**
-  - `calendar`, `entry`, `error`, `info`, `file-selection`, `list`, `notification`, `progress`, `question`, `warning`, `scale`, `text-info`, `color-selection`, `password`, `forms`, plus `about`.
-- **Opsi umum:**
-  - `--title`, `--width`, `--height`, `--timeout`, `--ok-label`, `--cancel-label`
-  - `--extra-button`, `--modal`
-  - `--attach` (*deprecated*, no-op — dipertahankan untuk kompatibilitas script)
-  - `--json`, `--lang=en|id`, `--window-icon`
-- **Selector help per dialog:** `--help-<dialog>` (mis. `--help-question`) dan `--version`.
-- **Kontrak exit & aliran:**
-  - Exit `0` = OK/help, `1` = Cancel/close, `5` = timeout, `255` = error.
-  - `stdout` hanya berisi data, `stderr` berisi diagnostik.
-  - Tepat satu tipe dialog per pemanggilan.
-- **Perilaku jendela COSMIC:**
-  - Jendela dialog mengambang dengan ukuran konten (bukan jendela aplikasi yang di-tile).
-  - Terang/gelap mengikuti `cosmic::Theme` (tema sistem COSMIC).
-  - Frosted glass via `enable_blur(true)` (blur di belakang jendela).
-  - Fokus diminta saat jendela dipetakan (*focus on map*).
-- **Kemasan (packaging):**
-  - Binary `cosmic-wicara` di `/usr/bin` (Arch `packaging/PKGBUILD`, `cargo build --release`, `[profile.release]` LTO + strip).
-  - Halaman manual `man/cosmic-wicara.1`.
-  - Entri desktop `cosmic-wicara.desktop` (`Exec=cosmic-wicara`, `Terminal=false`, `Categories=Utility;`).
-- **Tooling:**
-  - Resep `just`: `build`, `build-release`, `test`, `test-cli`, `install`, `fmt`, `clippy`, `list` (lihat `just --list`).
+- **All 15 dialogs + `about` are wired to real `libcosmic` widgets:**
+  - Text input (`entry` / `password`)
+  - File chooser via `xdg-portal` (native COSMIC file picker)
+  - Calendar (*calendar*), numeric slider (*scale*), color picker (*color-selection*)
+  - Interactive list (*list*), text viewer with checkbox (*text-info*)
+  - Progress bar from `stdin` (*progress*), notification with `--listen` (*notification*)
+  - Multi-field forms (*forms*)
+- **New options:**
+  - `--extra-button` — add an extra button (may be repeated)
+  - `--icon`, `--window-icon` — dialog icon / window icon
+  - `--ellipsize`, `--no-wrap` — text display controls
+  - `--switch`, `--default-cancel` — button and focus controls
+  - `--json` — dialog result as JSON (machine-readable)
+  - `--lang=en|id` — language for built-in dialog text (English / Indonesian)
+- **Dialog result contract (`DialogResult`):** `stdout` data is printed once when the dialog finishes, so scripts can easily capture it.
 
-### Changed — Perubahan perilaku
+### Fixed
 
-- Tidak ada perubahan perilaku di rilis pertama (baseline).
-
-### Fixed — Perbaikan bug
-
-- Tidak ada perbaikan bug di rilis pertama (baseline).
+- **Timeout now consistently exits `5` on every path** (previously one path exited `1` due to message mapping).
+- **Brand cleanup:** no leftover external references in code, the man page (`man/cosmic-wicara.1`), or the desktop entry (`cosmic-wicara.desktop`).
+- **Documentation:** the `docs/` folder (old plans) was removed; all documentation now lives in `README.md`, `CHANGELOG.md`, and the man page `man/cosmic-wicara.1` so it is easier to find and understand.
 
 ---
 
-## Panduan membaca changelog ini
+## [0.1.0] — Initial release
 
-| Judul bagian | Arti |
+> First release: a native COSMIC dialog tool (Rust + `libcosmic`, COSMIC-only, Wayland-first).
+
+### Added
+
+- **15 dialogs + `about`:**
+  - `calendar`, `entry`, `error`, `info`, `file-selection`, `list`, `notification`, `progress`, `question`, `warning`, `scale`, `text-info`, `color-selection`, `password`, `forms`, plus `about`.
+- **General options:**
+  - `--title`, `--width`, `--height`, `--timeout`, `--ok-label`, `--cancel-label`
+  - `--extra-button`, `--modal`
+  - `--attach` (*deprecated*, no-op — kept for script compatibility)
+  - `--json`, `--lang=en|id`, `--window-icon`
+- **Per-dialog help selectors:** `--help-<dialog>` (e.g. `--help-question`) and `--version`.
+- **Exit and stream contract:**
+  - Exit `0` = OK/help, `1` = Cancel/close, `5` = timeout, `255` = error.
+  - `stdout` carries data only; `stderr` carries diagnostics.
+  - Exactly one dialog type per invocation.
+- **COSMIC window behaviour:**
+  - Dialog windows float and size to their content (not a tiled application window).
+  - Light/dark follows `cosmic::Theme` (the COSMIC system theme).
+  - Frosted glass via `enable_blur(true)` (blur behind the window).
+  - Focus requested on map.
+- **Packaging:**
+  - `cosmic-wicara` binary in `/usr/bin` (Arch `packaging/PKGBUILD`, `cargo build --release`, `[profile.release]` LTO + strip).
+  - Man page `man/cosmic-wicara.1`.
+  - Desktop entry `cosmic-wicara.desktop` (`Exec=cosmic-wicara`, `Terminal=false`, `Categories=Utility;`).
+- **Tooling:**
+  - `just` recipes: `build`, `build-release`, `test`, `test-cli`, `install`, `fmt`, `clippy`, `list` (see `just --list`).
+
+### Changed
+
+- No behaviour changes in the first release (baseline).
+
+### Fixed
+
+- No bug fixes in the first release (baseline).
+
+---
+
+## How to read this changelog
+
+| Section heading | Meaning |
 |---|---|
-| `Added` | Fitur baru yang ditambahkan |
-| `Changed` | Perubahan pada perilaku yang sudah ada |
-| `Fixed` | Bug yang diperbaiki |
-| `Unreleased` | Perubahan yang belum dirilis |
-| `[0.1.0]` | Versi rilis, mengikuti Semantic Versioning |
+| `Added` | New features |
+| `Changed` | Changes to existing behaviour |
+| `Fixed` | Bugs that were fixed |
+| `Unreleased` | Changes not yet released |
+| `[0.1.0]` | Release version, following Semantic Versioning |
